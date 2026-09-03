@@ -50,11 +50,13 @@
         </div>
       </div>
 
-      <div class="message-overlay" v-if="gameStatus !== 'playing'">
+      <div class="message-overlay" v-if="gameStatus === 'won' || gameStatus === 'lost'">
         <div class="message-card">
           <h2 v-if="gameStatus === 'won'" class="win-text">🎉 Brilliant!</h2>
           <div v-else class="loss-text">
             <h2>Game Over</h2>
+          </div>
+          <div class="loss-text">
             <p>The word was: <strong>{{ targetWord }}</strong></p>
           </div>
           <button class="play-again-btn" @click="resetGame">Play Again</button>
@@ -148,6 +150,7 @@ const handleKeydown = (rIndex: number, cIndex: number, event: KeyboardEvent) => 
   if (event.key === 'Backspace' && !grid.value[rIndex][cIndex].letter && cIndex > 0) {
     focusInput(rIndex, cIndex - 1);
   } else if (event.key === 'Enter') {
+    event.stopPropagation();
     submitGuess();
   } else if (event.key === 'ArrowLeft' && cIndex > 0) {
     focusInput(rIndex, cIndex - 1);

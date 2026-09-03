@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 const rows = 6;
 const cols = 5;
@@ -108,7 +108,18 @@ const fetchWord = async () => {
 onMounted(async () => {
   await fetchWord();
   focusInput(0, 0);
+  window.addEventListener('keydown', handleGlobalKeydown);
 });
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleGlobalKeydown);
+});
+
+const handleGlobalKeydown = (event: KeyboardEvent) => {
+  if (gameStatus.value !== 'playing' && event.key === 'Enter') {
+    resetGame();
+  }
+};
 
 const handleFocus = (rIndex: number, cIndex: number) => {
   if (rIndex === currentRow.value) {

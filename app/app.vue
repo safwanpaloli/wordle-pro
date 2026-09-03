@@ -3,6 +3,21 @@
     <div class="game-container">
       <h1 class="title">Wordle<span>Pro</span></h1>
       
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-box correct"></div>
+          <span>Correct Position</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box present"></div>
+          <span>Wrong Position</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box absent"></div>
+          <span>Not in Word</span>
+        </div>
+      </div>
+
       <div class="grid">
         <div v-for="(row, rIndex) in grid" :key="rIndex" class="row">
           <input
@@ -284,6 +299,40 @@ body {
 .title span {
   font-weight: 400;
   color: #94a3b8;
+}
+
+.legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.legend-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.legend-box.correct {
+  background: #22c55e;
+}
+
+.legend-box.present {
+  background: #eab308;
+}
+
+.legend-box.absent {
+  background: #94a3b8;
 }
 
 .grid {
